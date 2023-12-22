@@ -1,6 +1,3 @@
-# Stephanie.Clay@dfo-mpo.gc.ca
-# 2023-01-16
-
 library(oceancolouR)
 library(data.table)
 library(dplyr)
@@ -15,9 +12,8 @@ options(scipen=5)
 sensor <- "modisaqua"
 
 # matchup filename (should contain column names "insitu_chla", "spm", and "Rrs_*", where the * is each of the wavebands required for OCx for that sensor)
-#setwd("")
 input_file <- "./Data/ChlaTuning/InputTurnerMedian5x5.csv"
-#input_file <- "InputHPLCMedian5x5.csv"
+
 
 # base for output filenames ("_satchla.csv" and "_trainedparams.csv" will be appended to it)
 output_file <- "modisaqua_ocx_bof"
@@ -53,7 +49,6 @@ df <- df[good_inds,]
 rrs <- rrs[good_inds,]
 
 ##
-pngfile = "NewOCX-Turnern.png"
 
 # Optimize coefficients using band ratio + an extra SPM term
 term <- c("a0","a1","a2","a3","a4","aspm")

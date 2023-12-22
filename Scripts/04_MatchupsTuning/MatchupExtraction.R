@@ -6,7 +6,7 @@ modis.dates.in = list.files("./Modis/Daily_Composites_geotiff/chloc3",recursive=
 modis.dat = stack(paste0("./Modis/Daily_Composites_geotiff/chloc3/", modis.dates.in))
 
 #Turner matchup
-turnerchl = read.csv("./Matchups/MergeFinalChlaturner.csv")
+turnerchl = read.csv("./Data/Matchups/MergeFinalChlaturner.csv")
 
 #S2 chl matchups
 modis.date = as.Date( unlist(strsplit(names(modis.dat),"A"))[seq(2,dim(modis.dat)[3]*2,2)], format="%Y%j")
@@ -64,6 +64,6 @@ turnerchl = turnerchl[is.na(turnerchl$median)==F,]
 turnerchl = turnerchl[is.na(turnerchl$sd)==F,]
 turnerchl$filtmean = unlist(turnerchl$filtmean)
 turnerchl$cv = unlist(turnerchl$cv)
-write.csv(turnerchl,"./Matchups/ModisChlaturner.csv",row.names = F)
+write.csv(turnerchl,"./Data/Matchups/ModisChlaturner.csv",row.names = F)
 
 
