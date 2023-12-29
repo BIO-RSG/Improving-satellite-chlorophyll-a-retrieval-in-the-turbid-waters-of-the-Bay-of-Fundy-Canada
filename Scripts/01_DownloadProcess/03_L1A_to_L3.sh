@@ -58,13 +58,13 @@ cd ../
 
 done
 
-#### Make daily composites from L2 GRD files in ../data folder: ####
-Rscript ../../Make_daily_composites_modisa.R spmhan 
-Rscript ../../Make_daily_composites_modisa.R spmdox 
-Rscript ../Make_daily_composites_modisa.R chloc3 
-Rscript ../Make_daily_composites_modisa.R chloci 
-Rscript ../Make_daily_composites_modisa.R chloc3m1 
-Rscript ../Make_daily_composites_modisa.R chloc3m2 
+#### Make daily composites from L2 GRD files: ####
+Rscript ./00_MakeDailyComposites_MODISA.R spmhan 
+Rscript ./00_MakeDailyComposites_MODISA.R spmdox 
+Rscript ./00_MakeDailyComposites_MODISA.R chloc3 
+Rscript ./00_MakeDailyComposites_MODISA.R chloci 
+Rscript ./00_MakeDailyComposites_MODISA.R chloc3m1 
+Rscript ./00_MakeDailyComposites_MODISA.R chloc3m2 
 
 rm gmt.conf
 rm gmt.history
