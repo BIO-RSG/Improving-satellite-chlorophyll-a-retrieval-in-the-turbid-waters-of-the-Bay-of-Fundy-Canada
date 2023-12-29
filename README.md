@@ -20,7 +20,7 @@ MODIS-Aqua [L1A images](https://oceancolor.gsfc.nasa.gov/resources/docs/product-
 1. `01_get_l2_file_names_modisa.R`: Get filenames
 2. `02_download_L2.sh`: Download L2 files and check spatial coverage. Remove if less than 5% of data available (using 555 nm band). Uses `00_Check_nb_pixel_in_image.R`
 3. `03_L1A_filenames_to_download.sh` and `04_download_L1A.sh`: gets L1A filenames from L2 filenames and downloads.
-4. `05_L1A_to_L3.sh`: Processes images in SeaDAS with `l2gen_swir_mumm.sh`. Uses `02_filter_computespm_v3.py` to apply masks and do further filtering. Includes new chl-a algorithm and other output products written to ASCII. Then uses GMT to grid to NetCDF in a given bounding box, and `Make_daily_composites_modisa_v3.R` to grid to daily composites.
+4. `05_L1A_to_L3.sh`: Processes images in SeaDAS with `l2gen_swir_mumm.sh`. Uses `02_filter_computespm.py` to apply masks and do further filtering. Includes new chl-a algorithm and other output products written to ASCII. Then uses GMT to grid to NetCDF in a given bounding box, and `Make_daily_composites_modisa_v3.R` to grid to daily composites.
 
 
 ### References for in situ data used in this study:
@@ -30,7 +30,7 @@ MODIS-Aqua [L1A images](https://oceancolor.gsfc.nasa.gov/resources/docs/product-
 3. Zions, V. S., B. A. Law, C. O. Laughlin, K. J. Morrison, A. Drozdowski, G. L. Bugden, and S. Roach. 2017. [Spatial and temporal characteristics of water column and seabed sediment samples from Minas Basin, Bay of Fundy.](https://publications.gc.ca/collections/collection_2018/mpo-dfo/Fs97-6-3233-eng.pdf) Can. Tech. Rep. Fish. Aquat. Sci. 3233: vi + 95.
 4. Horne, E., and B. Law. 2013. [Cruise report Hudson 2013013 Minas Basin June 4 - 16, 2013.](https://fern.acadiau.ca/tl_files/sites/fern/Files%202013/Hudson%202013-013%20Crusie%20Report_BayofFundy_Final.pdf)
 
-### Coastline files:
+### Coastline and boundary files:
 
 * Canada: 
 * U.S.A.: [United States Census Bureau Cartographic Boundary Files](https://www.census.gov/geographies/mapping-files/time-series/geo/cartographic-boundary.html)
