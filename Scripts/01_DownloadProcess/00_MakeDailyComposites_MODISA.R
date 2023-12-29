@@ -1,7 +1,12 @@
 # Make daily composite images
 
 # How to use: 
-# Rscript ../../Make_daily_composites_modisa_v3.R spmhan
+# Rscript ../../Make_daily_composites_modisa.R spmhan
+
+library(ncdf4)
+library(stringr)
+library(lubridate)
+library(sp)
 
 ##First read in the arguments listed at the command line
 args=(commandArgs(TRUE))
@@ -13,15 +18,10 @@ if(length(args) < 1){
 } else if (length(args) > 1) {
   message("Too many arguments")
 }
-var_code <- varname # Options: chloci, sst, chlgsm, spmdox, spmhan, spmnec, kdlee, kd490, par, 
+var_code <- varname # Options: chloci, sst, chlgsm, spmdox, spmhan, spmnec, kdlee, kd490, par, chloc3m1, chloc3m2
 
 # Here we make daily composites using the median of all images available in (per pixel)
-grdpath = "./" #"/home/hilborna/disk2/FUNDY_2021/MODISA/L2/SWIR_L2/"
-
-library(ncdf4)
-library(stringr)
-library(lubridate)
-library(sp)
+grdpath = "./"
 
 ###########
 
@@ -38,19 +38,19 @@ print(paste("PROCESSING DAILY COMPOSITES FOR:",var_code))
   lifiday = list.files(grdpath, pattern = var_code, full.names = T)
   
   if (var_code == "chloc3") {
-    idx_rm = grep("m1_v3.grd", lifiday)
+    idx_rm = grep("m1.grd", lifiday)
     # lifiday=lifiday[-idx_rm]
     if (length(idx_rm) > 0 ){ 
       lifiday = lifiday[-idx_rm]
       }
-    idx_rm = grep("m2_v3.grd", lifiday)
+    idx_rm = grep("m2.grd", lifiday)
     if (length(idx_rm) > 0 ){ 
       lifiday = lifiday[-idx_rm]
       }
   }
 
   # lifiday = list.files(paste0(grdpath,iyear), pattern = var_code, full.names = T) #CHANGE FOR YOUR COMPUTER
-  lifiday = lifiday[grep("v3.grd",lifiday)]
+  lifiday = lifiday[grep(".grd",lifiday)]
   if (raised_process == FALSE) {
     idx_alb = grep(pattern = "albedo", x = lifiday)
     if(length(idx_alb)>0) {
@@ -78,7 +78,6 @@ print(paste("PROCESSING DAILY COMPOSITES FOR:",var_code))
   
   justdate = as.Date(paste(yrnum, daynum, sep = "-"), format = "%Y-%j")
   nbday = unique(justdate)
-  # nbday = (unique(daynum))
   
   for (i in 1:length(nbday))
   {
@@ -93,29 +92,11 @@ print(paste("PROCESSING DAILY COMPOSITES FOR:",var_code))
       for (j in 1:length(lifim_sub))
         {
           #Open file
-          isdelta <- str_extract(lifim_sub[j],pattern="albedo")
           ncf = nc_open(lifim_sub[j])
           geovar=ncvar_get(ncf,"z")
           nc_close(ncf)
           print(dim(geovar))
-          # Remove lat/lon out of range for delta files
-          if (!is.na(isdelta) & (isdelta == "albedo")) {
-            print("raised albedo file")
-            isdelta=TRUE
-	    next
-            idx_rm =which(((matlat < minlat_albedo) | 
-                           (matlat > maxlat_albedo) |
-                           (matlon < minlon_albedo) | 
-                           (matlon > maxlon_albedo)) & !is.na(geovar))
-            geovar[idx_rm] <- NA
-           
-          } else if (is.na(isdelta) == TRUE) {
-            print("full region file")
-            isdelta = FALSE
-          } else {
-            print("ERROR WITH FILETYPE")
-            break
-          }
+          
           #Remove data out of range for variable
           if ((var_code == "spmnec") || (var_code == "spmdox") || (var_code == "spmhan")) {
             geovar[geovar <= 0] <- NA # Remove SPM pixels <- 0
@@ -144,12 +125,11 @@ print(paste("PROCESSING DAILY COMPOSITES FOR:",var_code))
         
         indk=is.finite(medgeovar)
         yearday = paste0(year(nbday[i]), str_pad(as.character(yday(nbday[i])),width = 3,side = "left",pad = "0"))
-        # yearday = paste0(iyear, str_pad(as.character(nbday[i]),width = 3,side = "left",pad = "0"))
-        outfile=paste0("A",yearday,"_",var_code,"_v3.asc")
+        outfile=paste0("A",yearday,"_",var_code,".asc")
         write.table(cbind(matlon[indk],matlat[indk],medgeovar[indk]),outfile,
               row.names=F,col.names=F,quote=F)
         
-        grdfile=paste0("A",yearday,"_",var_code,"_v3.grd")
+        grdfile=paste0("A",yearday,"_",var_code,".grd")
         # cmdgrd=paste("gmt xyz2grd ",outfile," -G",grdfile," -I300e -R/-68.8/-63.1/43.1/46.2 -V -fg",sep="")
         cmdgrd=paste0("gmt xyz2grd ",outfile," -G",grdfile," -I300e -R/-68.8/-63.1/43./46.2 -V -fg")
         system(cmdgrd)
