@@ -12,6 +12,11 @@ Please contact for daily composites
 
 MODIS-Aqua [L1A images](https://oceancolor.gsfc.nasa.gov/resources/docs/product-levels/) are downloaded from the NASA [Ocean Biology Processing Group](https://oceancolor.gsfc.nasa.gov/) and processed with [SeaDAS](https://seadas.gsfc.nasa.gov/) `l2gen`. Using this level and program the atmospheric correction and resolution details can be customized. Once the images are atmospherically corrected, further products are calculated from the Remote-sensing reflectance (*R<sub>rs</sub>*), regridded onto a common grid, and merged into daily composites. All further analysis occured using the regridded daily composites at 300 m spatial resolution.
 
+* To download images from NASA OBPG, creating an account and setting up a `.netrc` file are required: see the "Download Methods" tab [at their site](https://oceancolor.gsfc.nasa.gov/data/download_methods/)
+* The following R packages are required: `ncdf4` `httr` `jsonlite` `stringr` `dplyr` `terra` `sf` `lmodel2` `Metrics` `oceancolouR` `data.table` `raster` `doParallel` `foreach`
+  * To recreate all plots, the following are also needed: `ggplot2` `cowplot` `gridGraphics` `ggplotify` `patchwork` `pals` `rnaturalearth` `ggspatial` `scales` `plotrix` `hexbin`
+* The following Python packages are required: `numpy` `netCDF4`
+
 1. `01_get_l2_file_names_modisa.R`: Get filenames
 2. `02_download_L2.sh`: Download L2 files and check spatial coverage. Remove if less than 5% of data available (using 555 nm band). Uses `00_Check_nb_pixel_in_image.R`
 3. `03_L1A_filenames_to_download.sh` and `04_download_L1A.sh`: gets L1A filenames from L2 filenames and downloads.
