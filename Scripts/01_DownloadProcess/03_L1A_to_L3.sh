@@ -20,13 +20,13 @@ latmin=43.1
 ##### Process images to L2: ####
 echo "RUNNING NIR-SWIR CORRECTION"
 for l1aname in A*L1A_LAC; do
-bash ./l2gen_swir_mumm.sh $l1aname;
+bash ./00_l2genSwir.sh $l1aname;
 done
 
 #### L2 NASA flags, q/c and calculate Chl-a, SPM, etc: ####
 echo "FLAGGING AND CALCULATING CHL-A"
 for l2name in A*.L2_SWIR; do
-python ./02_filter_computespm.py ${l2name};
+python ./0_Filter_ComputeProducts.py ${l2name};
 done
 
 #### Grid file in GMT at 300 m resolution ####
@@ -35,7 +35,7 @@ echo "GRIDDING"
 for ascname in *L2_SWIR.asc; do
 echo $ascname;
 gmt xyz2grd $ascname -G${ascname:0:-6}spmhan.grd -I300e -R/$lonmin/$lonmax/$latmin/$latmax -Vn -fg;
-# gmt xyz2grd -i,0,1,3 $ascname -G${ascname:0:-4}spmdox.grd -I300e -R/$lonmin/$lonmax/$latmin/$latmax -Vn;
+# gmt xyz2grd -i,0,1,3 $ascname -G${ascname:0:-4}spmdox.grd -I300e -R/$lonmin/$lonmax/$latmin/$latmax -Vn -fg;
 # gmt xyz2grd -i,0,1,4 $ascname -G${ascname:0:-6}chloci.grd -I300e -R/$lonmin/$lonmax/$latmin/$latmax -V -fg;
 # gmt xyz2grd -i,0,1,10 $ascname -G${ascname:0:-6}spmnec.grd -I300e -R/$lonmin/$lonmax/$latmin/$latmax -V -fg;
 # gmt xyz2grd -i,0,1,11 $ascname -G${ascname:0:-6}chloc3.grd -I300e -R/$lonmin/$lonmax/$latmin/$latmax -V -fg;
@@ -47,22 +47,9 @@ gmt xyz2grd $ascname -G${ascname:0:-6}spmhan.grd -I300e -R/$lonmin/$lonmax/$latm
 # gmt xyz2grd -i,0,1,17 $ascname -G${ascname:0:-6}chloc3m2.grd -I300e -R/$lonmin/$lonmax/$latmin/$latmax -V -fg;
 done
 
-for i in {2003..2021}; do
-
-cd $i;
-
-Rscript ../../Make_daily_composites_modisa.R spmhan 
-Rscript ../../Make_daily_composites_modisa.R kdlee
-
-cd ../
-
-done
-
 #### Make daily composites from L2 GRD files: ####
-Rscript ./00_MakeDailyComposites_MODISA.R spmhan 
-Rscript ./00_MakeDailyComposites_MODISA.R spmdox 
-Rscript ./00_MakeDailyComposites_MODISA.R chloc3 
-Rscript ./00_MakeDailyComposites_MODISA.R chloci 
+Rscript ./00_MakeDailyComposites_MODISA.R spmnec
+Rscript ./00_MakeDailyComposites_MODISA.R chloc3
 Rscript ./00_MakeDailyComposites_MODISA.R chloc3m1 
 Rscript ./00_MakeDailyComposites_MODISA.R chloc3m2 
 

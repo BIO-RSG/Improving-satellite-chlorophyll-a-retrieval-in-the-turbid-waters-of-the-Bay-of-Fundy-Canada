@@ -1,7 +1,6 @@
 #!/bin/bash
 
-# Downloading L1A files for a given year to get them ready for processing
-
+# Downloading L1A files for a given year 
 # Get the list of files that have enough coverage:
 
 l2imgfolder=./

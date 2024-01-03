@@ -13,11 +13,6 @@ lonmax_lg=-63.1
 lonmin_lg=-68.8
 latmax_lg=46.25
 latmin_lg=43.1
-
-lonmax_sm=-63.2
-lonmin_sm=-65.2
-latmax_sm=46.2
-latmin_sm=44.9
 ######
 
 # Define the names of various files created

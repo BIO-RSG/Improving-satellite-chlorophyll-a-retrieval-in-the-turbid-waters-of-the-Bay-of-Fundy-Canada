@@ -1,7 +1,8 @@
 # Make daily composite images
+# Here we make daily composites using the median of all images available
 
 # How to use: 
-# Rscript ../../Make_daily_composites_modisa.R spmhan
+# Rscript Make_daily_composites_modisa.R spmnec
 
 library(ncdf4)
 library(stringr)
@@ -19,21 +20,11 @@ if(length(args) < 1){
   message("Too many arguments")
 }
 var_code <- varname # Options: chloci, sst, chlgsm, spmdox, spmhan, spmnec, kdlee, kd490, par, chloc3m1, chloc3m2
-
-# Here we make daily composites using the median of all images available in (per pixel)
 grdpath = "./"
-
-###########
-
-raised_process = FALSE # true or false for raised albedo composites
-minlat_albedo = 44.9
-maxlat_albedo = 46.2
-minlon_albedo = -64.77
-maxlon_albedo = -63.2
 
 print(paste("PROCESSING DAILY COMPOSITES FOR:",var_code))
 ###########
-#To loop through years, uncomment following and LINE 56
+#To loop through years, uncomment following and closing bracket
 # for (iyear in 2003:2012) {
   lifiday = list.files(grdpath, pattern = var_code, full.names = T)
   
@@ -126,8 +117,7 @@ print(paste("PROCESSING DAILY COMPOSITES FOR:",var_code))
         indk=is.finite(medgeovar)
         yearday = paste0(year(nbday[i]), str_pad(as.character(yday(nbday[i])),width = 3,side = "left",pad = "0"))
         outfile=paste0("A",yearday,"_",var_code,".asc")
-        write.table(cbind(matlon[indk],matlat[indk],medgeovar[indk]),outfile,
-              row.names=F,col.names=F,quote=F)
+        write.table(cbind(matlon[indk],matlat[indk],medgeovar[indk]),outfile,row.names=F,col.names=F,quote=F)
         
         grdfile=paste0("A",yearday,"_",var_code,".grd")
         # cmdgrd=paste("gmt xyz2grd ",outfile," -G",grdfile," -I300e -R/-68.8/-63.1/43.1/46.2 -V -fg",sep="")

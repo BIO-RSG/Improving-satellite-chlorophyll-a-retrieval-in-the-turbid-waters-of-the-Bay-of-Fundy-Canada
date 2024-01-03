@@ -55,7 +55,7 @@ for (i in minyear:maxyear) {
 }
 
 # Once files downloaded, read in and check time, sun angle ####
-yearfilelist <- list.files("./Scripts/01_DownloadProcess", "raw.csv", full.names = T)
+yearfilelist <- list.files("./Scripts/", "raw.csv", full.names = T)
 for (i in minyear:maxyear) {
   yearlist <- yearfilelist[grep(i,yearfilelist)]
   yearfiles <- list()
@@ -82,5 +82,5 @@ for (i in minyear:maxyear) {
   filename=paste0("BF","_",i,"_download_l2.csv")
   print(filename)
   print(paste(nrow(yearfiles), "files remaining"))
-  write.table(img_urls, file = paste0("./Scripts/01_DownloadProcess/",filename), quote = F, row.names = F, col.names = F)
+  write.table(img_urls, file = paste0("./Scripts/",filename), quote = F, row.names = F, col.names = F)
 }
