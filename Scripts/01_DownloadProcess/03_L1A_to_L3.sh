@@ -35,7 +35,6 @@ echo "GRIDDING"
 for ascname in *L2_SWIR.asc; do
 echo $ascname;
 gmt xyz2grd $ascname -G${ascname:0:-6}spmhan.grd -I300e -R/$lonmin/$lonmax/$latmin/$latmax -Vn -fg;
-# gmt xyz2grd -i,0,1,3 $ascname -G${ascname:0:-4}spmdox.grd -I300e -R/$lonmin/$lonmax/$latmin/$latmax -Vn -fg;
 # gmt xyz2grd -i,0,1,4 $ascname -G${ascname:0:-6}chloci.grd -I300e -R/$lonmin/$lonmax/$latmin/$latmax -V -fg;
 # gmt xyz2grd -i,0,1,10 $ascname -G${ascname:0:-6}spmnec.grd -I300e -R/$lonmin/$lonmax/$latmin/$latmax -V -fg;
 # gmt xyz2grd -i,0,1,11 $ascname -G${ascname:0:-6}chloc3.grd -I300e -R/$lonmin/$lonmax/$latmin/$latmax -V -fg;
@@ -51,7 +50,7 @@ done
 Rscript ./00_MakeDailyComposites_MODISA.R spmnec
 Rscript ./00_MakeDailyComposites_MODISA.R chloc3
 Rscript ./00_MakeDailyComposites_MODISA.R chloc3m1 
-Rscript ./00_MakeDailyComposites_MODISA.R chloc3m2 
+Rscript ./00_MakeDailyComposites_MODISA.R chloc3m2 #this is OCX-SPMCOR
 
 rm gmt.conf
 rm gmt.history

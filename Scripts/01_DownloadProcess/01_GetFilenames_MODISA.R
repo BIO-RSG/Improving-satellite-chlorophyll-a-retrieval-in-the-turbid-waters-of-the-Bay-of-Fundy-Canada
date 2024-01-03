@@ -18,7 +18,7 @@ maxlon=-63.1
 minyear = 2003
 maxyear = 2021
 
-dataset = "MODISA_L2_OC" # Other options are here https://cmr.earthdata.nasa.gov/search/site/collections/directory/OB_DAAC/gov.nasa.eosdis
+dataset = "MODISA_L1" # Other options are here https://cmr.earthdata.nasa.gov/search/site/collections/directory/OB_DAAC/gov.nasa.eosdis
 #########
 
 # Query CMR Search for files in each year ####
@@ -55,7 +55,7 @@ for (i in minyear:maxyear) {
 }
 
 # Once files downloaded, read in and check time, sun angle ####
-yearfilelist <- list.files("./Scripts/", "raw.csv", full.names = T)
+yearfilelist <- list.files("./Scripts/01_DownloadProcess", "raw.csv", full.names = T)
 for (i in minyear:maxyear) {
   yearlist <- yearfilelist[grep(i,yearfilelist)]
   yearfiles <- list()

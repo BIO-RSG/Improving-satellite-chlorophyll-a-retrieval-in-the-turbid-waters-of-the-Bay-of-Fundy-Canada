@@ -193,7 +193,6 @@ def main(*args):
   chla_oc3=np.power(10, (0.2424 + ( rrs_ratio_chl*-2.7423 ) + ( np.square(rrs_ratio_chl)*1.8017) + ( np.power(rrs_ratio_chl,3)*0.0015) + ( np.power(rrs_ratio_chl,4)*-1.228) ) )
   print(np.min(chla_oc3)) 
   print(np.max(chla_oc3))
-  
   # Specify allowed range of values
   chla_oc3[chla_oc3>100] = nan
   chla_oc3[chla_oc3 <= 0] = nan
@@ -209,8 +208,7 @@ def main(*args):
   print('OC3 v1 min: '+str(np.nanmin(chla_oc3v1)))
   print('OC3 v1 max: '+str(np.nanmax(chla_oc3v1)))
   
-  
-  # Formula 2
+  # Formula 2: OCX-SPMCOR
   # rrs_ratio_chl_488=np.log10( rrs_ratio_chl_488 )
   chla_oc3v2=np.power(10, (-0.2307818 + ( rrs_ratio_chl_488*-2.8174856) + ( np.square(rrs_ratio_chl_488)*-0.9109887) + ( np.power(rrs_ratio_chl_488, 3)*1.9070607) + ( np.power(rrs_ratio_chl_488, 4)*1.3149395) + (np.log10(spmnechad)*-1.0019175) ) )
   chla_oc3v2[chla_oc3v2 > 100] = nan
@@ -243,7 +241,6 @@ def main(*args):
       out_data[:,16]=chla_oc3v1
       out_data[:,17]=chla_oc3v2
   
-      print('Max Han SPM: '+str(np.nanmax(spmhan)))
       print('Max Nechad SPM: '+str(np.nanmax(spmnechad)))
       print('Max OC3 Chl: '+str(np.nanmax(chla_oc3)))
       print('Max OC3 v1 Chl: '+str(np.nanmax(chla_oc3v1)))
