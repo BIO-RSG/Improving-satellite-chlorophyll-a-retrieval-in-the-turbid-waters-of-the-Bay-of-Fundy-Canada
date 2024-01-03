@@ -16,7 +16,7 @@ Please contact for daily composites:
 
 All downloading, processing, analysis and plotting code is included in the `./Scripts` folder. To run all steps, you will need to install R, Python, [SeaDAS](https://seadas.gsfc.nasa.gov/) with [OCSSW processing](https://seadas.gsfc.nasa.gov/requirements/), and [GMT](https://www.generic-mapping-tools.org/).
 
-* The following R packages are required: `ncdf4` `httr` `jsonlite` `stringr` `dplyr` `terra` `sf` `lmodel2` `Metrics` `oceancolouR` `data.table` `raster` `doParallel` `foreach` `lubridate` `sp`
+* The following R packages are required: `ncdf4` `httr` `jsonlite` `stringr` `dplyr` `terra` `sf` `lmodel2` `Metrics` [`oceancolouR`](https://github.com/BIO-RSG/oceancolouR) `data.table` `raster` `doParallel` `foreach` `lubridate` `sp`
   * To recreate all plots, the following are also needed: `ggplot2` `cowplot` `gridGraphics` `ggplotify` `patchwork` `pals` `rnaturalearth` `ggspatial` `scales` `plotrix` `hexbin`
 * The following Python packages are required: `numpy` `netCDF4`
 
