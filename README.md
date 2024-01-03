@@ -8,19 +8,29 @@ The yearly and seasonal climatology layers are hosted on Open Data at:
 
 Please contact for daily composites
 
-### MODIS-Aqua Image Processing Steps:
+### Running the data, analysis and figures:
 
-MODIS-Aqua [L1A images](https://oceancolor.gsfc.nasa.gov/resources/docs/product-levels/) are downloaded from the NASA [Ocean Biology Processing Group](https://oceancolor.gsfc.nasa.gov/) and processed with [SeaDAS](https://seadas.gsfc.nasa.gov/) `l2gen`. Using this level and program the atmospheric correction and resolution details can be customized. Once the images are atmospherically corrected, further products are calculated from the Remote-sensing reflectance (*R<sub>rs</sub>*), regridded onto a common grid, and merged into daily composites. All further analysis occured using the regridded daily composites at 300 m spatial resolution.
+All downloading, processing, analysis and plotting code is included in the `./Scripts` folder. To run all steps, you will need to install R, Python, [SeaDAS](https://seadas.gsfc.nasa.gov/) with [OCSSW processing](https://seadas.gsfc.nasa.gov/requirements/), and [GMT](https://www.generic-mapping-tools.org/).
 
-* To download images from NASA OBPG, creating an account and setting up a `.netrc` file are required: see the "Download Methods" tab [at their site](https://oceancolor.gsfc.nasa.gov/data/download_methods/)
 * The following R packages are required: `ncdf4` `httr` `jsonlite` `stringr` `dplyr` `terra` `sf` `lmodel2` `Metrics` `oceancolouR` `data.table` `raster` `doParallel` `foreach` `lubridate` `sp`
   * To recreate all plots, the following are also needed: `ggplot2` `cowplot` `gridGraphics` `ggplotify` `patchwork` `pals` `rnaturalearth` `ggspatial` `scales` `plotrix` `hexbin`
 * The following Python packages are required: `numpy` `netCDF4`
 
-1. `01_get_l2_file_names_modisa.R`: Get filenames
-2. `02_download_L2.sh`: Download L2 files and check spatial coverage. Remove if less than 5% of data available (using 555 nm band). Uses `00_Check_nb_pixel_in_image.R`
-3. `03_L1A_filenames_to_download.sh` and `04_download_L1A.sh`: gets L1A filenames from L2 filenames and downloads.
-4. `05_L1A_to_L3.sh`: Processes images in SeaDAS with `l2gen_swir_mumm.sh`. Uses `02_filter_computespm.py` to apply masks and do further filtering. Includes new chl-a algorithm and other output products written to ASCII. Then uses GMT to grid to NetCDF in a given bounding box, and `Make_daily_composites_modisa_v3.R` to grid to daily composites.
+#### MODIS-Aqua Image Processing Steps:
+
+MODIS-Aqua [L1A images](https://oceancolor.gsfc.nasa.gov/resources/docs/product-levels/) are downloaded from the NASA [Ocean Biology Processing Group](https://oceancolor.gsfc.nasa.gov/) and processed with [SeaDAS](https://seadas.gsfc.nasa.gov/) `l2gen`. Using this level and program the atmospheric correction and resolution details can be customized. Once the images are atmospherically corrected, further products are calculated from the Remote-sensing reflectance (*R<sub>rs</sub>*), regridded onto a common grid, and merged into daily composites. All further analysis occurred using the regridded daily composites at 300 m spatial resolution.
+
+**Note** that this data was assembled before the NASA OBPG R2022.0 reprocessing so retain the old naming convention! E.g. `A2018161180500.L1A_LAC`- **A**: MODIS-Aqua, **2018161**: day 161 of 2018, aka June 10th, **180500** is 18:05:00 UTC
+
+* To download images from NASA OBPG, creating an account and setting up a `.netrc` file are required: see the "Download Methods" tab [at their site](https://oceancolor.gsfc.nasa.gov/data/download_methods/)
+
+1. *Pre-filtering* `01_GetL2Filenames_MODISA.R`: Get filenames, then download with `01_DownloadL2.sh`.
+   * Removes if less than 5% of data available (using 555 nm band) and uses `00_Check_nb_pixel_in_image.R`.
+   * The download step isn't necessary but can speed up processing later (removes empty L1A files so you don't have to download and process them to find out that they are empty). You will need to run `01_GetL2Filenames_MODISA.R` regardless.
+2. `02_DownloadL1A.sh`: Download L1A files to process with `l2gen`
+3. `03_L1A_to_L3.sh`: Processes images in SeaDAS with `00_l2genSwir.sh`. Uses `00_Filter_ComputeProducts.py` to apply masks, do further filtering, and calculate SPM and Chl-a.
+   * Includes new chl-a algorithm and other output products written to ASCII.
+   * Uses GMT to grid to NetCDF in a given bounding box, and `00_MakeDailyComposites_MODISA.R` to grid to daily composites.
 
 
 ### References for in situ data used in this study:
