@@ -28,12 +28,12 @@ MODIS-Aqua [L1A images](https://oceancolor.gsfc.nasa.gov/resources/docs/product-
 
 * To download images from NASA OBPG, creating an account and setting up a `.netrc` file are required: see the "Download Methods" tab [at their site](https://oceancolor.gsfc.nasa.gov/data/download_methods/)
 
-1. `01_GetFilenames_MODISA.R`: Get filenames
-2. `01_DownloadL1A.sh`: Download L1A files to process with `l2gen`
+1. `01_GetFilenames_MODISA.R`: Get L1A filenames
+  * Side quest: you can find the processed L2 files with `dataset = "MODISA_L2_OC"` and filter out images with no data, to save time downloading and processing the L1A. See `01b_DownloadL2.sh` for helper functions, but this script is now defunct due to the name convention change.
+2. Download L1A files with `02_DownloadL1A.sh`
 3. `03_L1A_to_L3.sh`: Processes images in SeaDAS with `00_l2genSwir.sh`. Uses `00_Filter_ComputeProducts.py` to apply masks, do further filtering, and calculate SPM and Chl-a.
    * Includes new chl-a algorithm and other output products written to ASCII.
    * Uses GMT to grid to NetCDF in a given bounding box, and `00_MakeDailyComposites_MODISA.R` to grid to daily composites.
-
 
 ### References for in situ data used in this study:
 

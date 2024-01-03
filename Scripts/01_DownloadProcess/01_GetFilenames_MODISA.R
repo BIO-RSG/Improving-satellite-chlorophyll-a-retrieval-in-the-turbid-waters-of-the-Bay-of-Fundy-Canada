@@ -1,7 +1,6 @@
-# Get lists of L2 files by searching the NASA earthdata site in a bounding box and over a time period
+# Get lists of files by searching the NASA earthdata site in a bounding box and over a time period
 # LOOP 1: Scrape files in a bounding box and metadata (no coverage meta yet)
 # LOOP 2: Filter files to daytime, sun above horizon, other time filt if wanted.
-# Note that the CMR search results might have coverage info now. They didn't use to (hence a bit of a convoluted process downloading our L1As)
 # Andrea Hilborn 2021
 
 library(httr)
@@ -19,16 +18,18 @@ minyear = 2003
 maxyear = 2021
 
 dataset = "MODISA_L1" # Other options are here https://cmr.earthdata.nasa.gov/search/site/collections/directory/OB_DAAC/gov.nasa.eosdis
+# NOTE! We downloaded MODISA_L2_OC first, and filtered out images with zero coverage. However the R2018 data is no longer available in CMR search. R2022 is available, but with the new filenaming convention that no longer matches the L1A convention.
+
 #########
 
 # Query CMR Search for files in each year ####
 for (i in minyear:maxyear) {
   pagenum = 1
+  mindate = paste0(i,"-01-01")
+  maxdate = paste0(i,"-12-31")
+  message(paste(mindate, maxdate))
   # Loop through all pages available
   while(pagenum > 0) {
-    mindate = paste0(i,"-01-01")
-    maxdate = paste0(i,"-12-31")
-    print(paste(mindate, maxdate))
     # Get files in date range and bounding box
     url = paste0("https://cmr.earthdata.nasa.gov/search/granules.csv?provider=OB_DAAC&short_name=",dataset,
                  "&bounding_box=",
@@ -49,7 +50,7 @@ for (i in minyear:maxyear) {
     } else {
       pagenum = 0
     }
-    cat(pagenum)
+    # cat(pagenum)
     cat("...")
   }
 }
@@ -63,7 +64,7 @@ for (i in minyear:maxyear) {
     yearfiles[[j]] <- read.csv(yearlist[j], skip=1)
   }
   yearfiles <- do.call(rbind, yearfiles)
-  print(paste(nrow(yearfiles),"files found in year",i))
+  message(paste(nrow(yearfiles),"files found in year",i))
   yearfiles$Start.Time <- lubridate::ymd_hms(yearfiles$Start.Time, tz = "UTC")
   yearfiles$time <- format(yearfiles$Start.Time, format="%H:%M:%S")
   # Calculating rough sun angle, remove img if below threshold
@@ -79,8 +80,8 @@ for (i in minyear:maxyear) {
   img_urls <- yearfiles$Online.Access.URLs
   
   # Print out list of L2 files to download
-  filename=paste0("BF","_",i,"_download_l2.csv")
-  print(filename)
-  print(paste(nrow(yearfiles), "files remaining"))
-  write.table(img_urls, file = paste0("./Scripts/",filename), quote = F, row.names = F, col.names = F)
+  filename=paste0("BF","_",i,"_download_L1A.csv")
+  message(filename)
+  message(paste(nrow(yearfiles), "files remaining"))
+  write.table(img_urls, file = paste0("./Scripts/01_DownloadProcess/",filename), quote = F, row.names = F, col.names = F)
 }

@@ -1,9 +1,14 @@
 #!/bin/bash
 
+#### DEFUNCT ####
+
 # Download L2 files from lists retrieved from NASA site
 # Test for coverage in study area and save in text file. Also saves list of files to download.
 # Deletes file if lower than 5% coverage in study region (of what is in the L2 image)
 # This was done as a time-saving step as many L1As have no valid data but a long time to download and process
+
+# NOTE! This needs to be updated with the new filename convention. #
+# The L1A filename timestamps no longer correspond to the L2 filenames, even if the date is converted. #
 
 d=$(date +%Y-%m-%d_%H%M)
 
