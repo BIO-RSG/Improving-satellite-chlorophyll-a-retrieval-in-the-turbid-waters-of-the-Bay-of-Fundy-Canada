@@ -49,14 +49,17 @@ gmt xyz2grd -i,0,1,12 $ascname -G${ascname:0:-4}chloc3m2.grd -I300e -R/$lonmin/$
       
 done
 
-mkdir -p Daily_Composites
+
 #### Make daily composites from L2 GRD files: ####
+mkdir -p Daily_Composites
+
 Rscript ./00_MakeDailyComposites_MODISA.R spmnec
 Rscript ./00_MakeDailyComposites_MODISA.R chloc3
 Rscript ./00_MakeDailyComposites_MODISA.R chloc3m2 #this is OCX-SPMCOR
 
 mv A???????_*grd ./Daily_Composites
 
+# Clean up a bit
 rm gmt.conf
 rm gmt.history
 rm spm.cpt
