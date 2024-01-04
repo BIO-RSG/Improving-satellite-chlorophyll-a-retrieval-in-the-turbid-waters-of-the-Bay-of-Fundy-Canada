@@ -23,10 +23,12 @@ for l1aname in A*L1A_LAC; do
 bash ./00_l2genSwir.sh $l1aname;
 done
 
+# rm *.anc # Uncomment to remove ancillary data
+
 #### L2 NASA flags, q/c and calculate Chl-a, SPM, etc: ####
 echo "FLAGGING AND CALCULATING CHL-A"
 for l2name in A*.L2_SWIR; do
-python ./0_Filter_ComputeProducts.py ${l2name};
+python ./00_Filter_ComputeProducts.py ${l2name};
 done
 
 #### Grid file in GMT at 300 m resolution ####
@@ -34,23 +36,26 @@ echo "GRIDDING"
 
 for ascname in *L2_SWIR.asc; do
 echo $ascname;
-gmt xyz2grd $ascname -G${ascname:0:-6}spmhan.grd -I300e -R/$lonmin/$lonmax/$latmin/$latmax -Vn -fg;
-# gmt xyz2grd -i,0,1,4 $ascname -G${ascname:0:-6}chloci.grd -I300e -R/$lonmin/$lonmax/$latmin/$latmax -V -fg;
-# gmt xyz2grd -i,0,1,10 $ascname -G${ascname:0:-6}spmnec.grd -I300e -R/$lonmin/$lonmax/$latmin/$latmax -V -fg;
-# gmt xyz2grd -i,0,1,11 $ascname -G${ascname:0:-6}chloc3.grd -I300e -R/$lonmin/$lonmax/$latmin/$latmax -V -fg;
-# gmt xyz2grd -i,0,1,12 $ascname -G${ascname:0:-6}rrs443.grd -I300e -R/$lonmin/$lonmax/$latmin/$latmax -V -fg;
-# gmt xyz2grd -i,0,1,13 $ascname -G${ascname:0:-6}rrs488.grd -I300e -R/$lonmin/$lonmax/$latmin/$latmax -V -fg;
-# gmt xyz2grd -i,0,1,14 $ascname -G${ascname:0:-6}rrs547.grd -I300e -R/$lonmin/$lonmax/$latmin/$latmax -V -fg;
-# gmt xyz2grd -i,0,1,15 $ascname -G${ascname:0:-6}rrs667.grd -I300e -R/$lonmin/$lonmax/$latmin/$latmax -V -fg;
-# gmt xyz2grd -i,0,1,16 $ascname -G${ascname:0:-6}chloc3m1.grd -I300e -R/$lonmin/$lonmax/$latmin/$latmax -V -fg;
-# gmt xyz2grd -i,0,1,17 $ascname -G${ascname:0:-6}chloc3m2.grd -I300e -R/$lonmin/$lonmax/$latmin/$latmax -V -fg;
+# gmt xyz2grd -i,0,1,2 $ascname -G${ascname:0:-4}spmhan.grd -I300e -R/$lonmin/$lonmax/$latmin/$latmax -V -fg;
+# gmt xyz2grd -i,0,1,4 $ascname -G${ascname:0:-4}chloci.grd -I300e -R/$lonmin/$lonmax/$latmin/$latmax -V -fg;
+gmt xyz2grd -i,0,1,5 $ascname -G${ascname:0:-4}spmnec.grd -I300e -R/$lonmin/$lonmax/$latmin/$latmax -V -fg;
+gmt xyz2grd -i,0,1,6 $ascname -G${ascname:0:-4}chloc3.grd -I300e -R/$lonmin/$lonmax/$latmin/$latmax -V -fg;
+# gmt xyz2grd -i,0,1,7 $ascname -G${ascname:0:-4}rrs443.grd -I300e -R/$lonmin/$lonmax/$latmin/$latmax -V -fg;
+# gmt xyz2grd -i,0,1,8 $ascname -G${ascname:0:-4}rrs488.grd -I300e -R/$lonmin/$lonmax/$latmin/$latmax -V -fg;
+# gmt xyz2grd -i,0,1,9 $ascname -G${ascname:0:-4}rrs547.grd -I300e -R/$lonmin/$lonmax/$latmin/$latmax -V -fg;
+# gmt xyz2grd -i,0,1,10 $ascname -G${ascname:0:-4}rrs667.grd -I300e -R/$lonmin/$lonmax/$latmin/$latmax -V -fg;
+# gmt xyz2grd -i,0,1,11 $ascname -G${ascname:0:-4}chloc3m1.grd -I300e -R/$lonmin/$lonmax/$latmin/$latmax -V -fg;
+gmt xyz2grd -i,0,1,12 $ascname -G${ascname:0:-4}chloc3m2.grd -I300e -R/$lonmin/$lonmax/$latmin/$latmax -V -fg;
+      
 done
 
+mkdir -p Daily_Composites
 #### Make daily composites from L2 GRD files: ####
 Rscript ./00_MakeDailyComposites_MODISA.R spmnec
 Rscript ./00_MakeDailyComposites_MODISA.R chloc3
-Rscript ./00_MakeDailyComposites_MODISA.R chloc3m1 
 Rscript ./00_MakeDailyComposites_MODISA.R chloc3m2 #this is OCX-SPMCOR
+
+mv A???????_*grd ./Daily_Composites
 
 rm gmt.conf
 rm gmt.history
