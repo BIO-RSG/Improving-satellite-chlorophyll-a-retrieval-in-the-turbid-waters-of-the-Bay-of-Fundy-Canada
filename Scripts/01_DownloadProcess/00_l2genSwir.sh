@@ -11,7 +11,7 @@ echo $filename
 ###### Region:
 lonmax_lg=-63.1
 lonmin_lg=-68.8
-latmax_lg=46.25
+latmax_lg=46.2 #was 46.25??
 latmin_lg=43.1
 ######
 
@@ -22,7 +22,6 @@ l1bname=${filename:0:15}L1B_LAC
 l1b_qkm=${filename:0:15}L1B_QKM
 l1b_hkm=${filename:0:15}L1B_HKM
 l2swir=${filename:0:15}L2_SWIR
-l2mumm=${filename:0:15}L2_MUMM
   
 echo $namestring
 

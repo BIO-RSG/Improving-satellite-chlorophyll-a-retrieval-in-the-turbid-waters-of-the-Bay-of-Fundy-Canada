@@ -7,6 +7,8 @@ library(httr)
 library(jsonlite)
 library(stringr)
 library(dplyr)
+library(lubridate)
+library(oce)
 
 ###### BOUNDING BOX & YEARS ######
 minlat=43.1
@@ -65,10 +67,10 @@ for (i in minyear:maxyear) {
   }
   yearfiles <- do.call(rbind, yearfiles)
   message(paste(nrow(yearfiles),"files found in year",i))
-  yearfiles$Start.Time <- lubridate::ymd_hms(yearfiles$Start.Time, tz = "UTC")
+  yearfiles$Start.Time <- ymd_hms(yearfiles$Start.Time, tz = "UTC")
   yearfiles$time <- format(yearfiles$Start.Time, format="%H:%M:%S")
   # Calculating rough sun angle, remove img if below threshold
-  yearfiles$altitude <- oce::sunAngle(yearfiles$Start.Time, 
+  yearfiles$altitude <- sunAngle(yearfiles$Start.Time, 
                                       longitude = mean(c(minlon, maxlon)), #at center longitude
                                       latitude = mean(c(minlat, maxlat)) )$altitude # at center latitude
   yearfiles <- yearfiles %>% filter(altitude > 0)
