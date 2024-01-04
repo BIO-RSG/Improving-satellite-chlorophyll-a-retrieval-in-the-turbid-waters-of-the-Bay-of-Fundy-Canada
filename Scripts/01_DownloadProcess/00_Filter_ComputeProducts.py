@@ -227,19 +227,14 @@ def main(*args):
       out_data[:,2]=spmhan
       out_data[:,3]=spmdox
       out_data[:,4]=chlor_a #oc3/oci chl
-      out_data[:,5]=chlgsm_data # Need to remove all these extra products and not mess up code later on
-      out_data[:,6]=kdlee_data
-      out_data[:,7]=kd490_data
-      out_data[:,8]=sst_data
-      out_data[:,9]=par_data
-      out_data[:,10]=spmnechad
-      out_data[:,11]=chla_oc3
-      out_data[:,12]=rrs_443
-      out_data[:,13]=rrs_488
-      out_data[:,14]=rrs_547
-      out_data[:,15]=rrs_667
-      out_data[:,16]=chla_oc3v1
-      out_data[:,17]=chla_oc3v2
+      out_data[:,5]=spmnechad
+      out_data[:,6]=chla_oc3
+      out_data[:,7]=rrs_443
+      out_data[:,8]=rrs_488
+      out_data[:,9]=rrs_547
+      out_data[:,10]=rrs_667
+      out_data[:,11]=chla_oc3v1
+      out_data[:,12]=chla_oc3v2
   
       print('Max Nechad SPM: '+str(np.nanmax(spmnechad)))
       print('Max OC3 Chl: '+str(np.nanmax(chla_oc3)))
