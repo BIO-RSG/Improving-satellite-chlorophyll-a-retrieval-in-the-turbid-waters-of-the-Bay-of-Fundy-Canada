@@ -22,6 +22,7 @@ def main(*args):
   
   ifile=str(sys.argv[1])
   print(ifile)
+  ofile=str(sys.argv[1])+'.asc'
   nc = Dataset(ifile,'r')
   gd_group = nc.groups['geophysical_data']
   nav_group = nc.groups['navigation_data']
