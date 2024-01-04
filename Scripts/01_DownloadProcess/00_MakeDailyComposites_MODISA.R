@@ -25,7 +25,7 @@ grdpath = "./"
 print(paste("PROCESSING DAILY COMPOSITES FOR:",var_code))
 ###########
 #To loop through years, uncomment following and closing bracket
-# for (iyear in 2003:2012) {
+# for (iyear in 2003:2021) {
   lifiday = list.files(grdpath, pattern = var_code, full.names = T)
   
   if (var_code == "chloc3") {
@@ -40,15 +40,7 @@ print(paste("PROCESSING DAILY COMPOSITES FOR:",var_code))
       }
   }
 
-  # lifiday = list.files(paste0(grdpath,iyear), pattern = var_code, full.names = T) #CHANGE FOR YOUR COMPUTER
   lifiday = lifiday[grep(".grd",lifiday)]
-  if (raised_process == FALSE) {
-    idx_alb = grep(pattern = "albedo", x = lifiday)
-    if(length(idx_alb)>0) {
-	    lifiday = lifiday[-idx_alb]
-    }
-    print("NO ALBEDO IMAGES INCLUDED")
-  }
   nbday=length(lifiday)
   message(paste("num imgs:",nbday))
 
