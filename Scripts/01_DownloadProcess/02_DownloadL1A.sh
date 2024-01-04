@@ -12,6 +12,8 @@
 d=$(date +%Y-%m-%d_%H%M)
 
 # Full study region
+
+
 lonmax_lg=-63.1
 lonmin_lg=-68.8
 latmax_lg=46.2
@@ -26,9 +28,10 @@ do
   do
     echo "$line"
     urlname=$line
-    imgname=`echo "$filename" | grep -oP "A[0-9]{13}"`
-    wget -q --show-progress --load-cookies ~/.urs_cookies --save-cookies ~/.urs_cookies --auth-no-challenge=on --content-disposition $urlname
-  bunzip2 ${filename}.bz2
+    imgname=`echo "$urlname" | grep -oP "A[0-9]{13}.L1A_LAC"`
+    wget -q --show-progress --load-cookies ~/.urs_cookies --save-cookies ~/.urs_cookies --auth-no-challenge=on --content-disposition $urlname  -O $imgname.bz2 # Issues with modis_GEO using auto name, e.g. https://oceancolor.gsfc.nasa.gov/forum/oceancolor/topic_show.pl?tid=6322
+  bunzip2 ${imgname}.bz2
+
   done < "$i"
 done
 
