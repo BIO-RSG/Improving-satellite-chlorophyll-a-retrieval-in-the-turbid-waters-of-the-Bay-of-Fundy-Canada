@@ -45,7 +45,7 @@ for (i in minyear:maxyear) {
       # Save to file
       filename=paste0("BF","_",i,"_",minlon,"_",maxlon,"_",minlat,"_",maxlat,"_page",pagenum,"_raw.csv")
       message(filename)
-      write.csv(x = data, file = paste0("./Scripts/01_DownloadProcess/",filename), quote = F, row.names = F)
+      write.csv(x = data, file = paste0("./",filename), quote = F, row.names = F)
       pagenum = pagenum+1
     } else {
       pagenum = 0
@@ -56,7 +56,7 @@ for (i in minyear:maxyear) {
 }
 
 # Once files downloaded, read in and check time, sun angle ####
-yearfilelist <- list.files("./Scripts/01_DownloadProcess", "raw.csv", full.names = T)
+yearfilelist <- list.files("./", "raw.csv", full.names = T)
 for (i in minyear:maxyear) {
   yearlist <- yearfilelist[grep(i,yearfilelist)]
   yearfiles <- list()
@@ -83,5 +83,5 @@ for (i in minyear:maxyear) {
   filename=paste0("BF","_",i,"_download_L1A.csv")
   message(filename)
   message(paste(nrow(yearfiles), "files remaining"))
-  write.table(img_urls, file = paste0("./Scripts/01_DownloadProcess/",filename), quote = F, row.names = F, col.names = F)
+  write.table(img_urls, file = paste0("./",filename), quote = F, row.names = F, col.names = F)
 }
