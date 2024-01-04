@@ -28,7 +28,7 @@ do
     urlname=$line
     imgname=`echo "$filename" | grep -oP "A[0-9]{13}"`
     wget -q --show-progress --load-cookies ~/.urs_cookies --save-cookies ~/.urs_cookies --auth-no-challenge=on --content-disposition $urlname
-  # bunzip2 ${filename}.bz2
+  bunzip2 ${filename}.bz2
   done < "$i"
 done
 
