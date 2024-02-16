@@ -82,7 +82,7 @@ ind.col = in.col[ind.col]
 plot(chl.shp,col=ind.col,pch=20,
      #col="grey35",
      add=T,cex=0.9)
-legend(x=-68,y=42.8, c("Prince 5","St John Harbour", "Horse Mussel Reef"), lwd=c(NA,1,1),
+legend(x=-68,y=42.8, c("Prince 5","Saint John Harbour", "Horse Mussel Reef"), lwd=c(NA,1,1),
        pch=c(21,NA,NA),pt.bg = c("orange",NA,NA),ncol=3,
        col=c("black", "red","purple"),xpd=NA,bty="n")
 text(x=-68.5, y=46, "(c)")

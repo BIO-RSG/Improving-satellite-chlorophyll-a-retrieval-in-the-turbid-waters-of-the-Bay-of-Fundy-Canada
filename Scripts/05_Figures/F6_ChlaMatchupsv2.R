@@ -20,7 +20,7 @@ par(mfcol=c(2,1), mgp=c(2.2,1,0), mar=c(1,3.5,1,0.1),#3.5),
     family="serif",oma=c(2,0,1,0.1),xpd=NA)
 ind.col.spm = cut(oc3.dat$spm, breaks=seq(0,15,1))
 ind.col.spm = in.col[ind.col.spm]
-plot(NULL ,xlim=c(0.05,50), ylim=c(0.05,50),pch=19,log="xy",xlab = "",ylab = expression("Sat chl-a (mg/m"^3*")"))
+plot(NULL ,xlim=c(0.05,50), ylim=c(0.05,50),pch=19,log="xy",xlab = "",ylab = expression("Satellite chl-a (mg/m"^3*")"))
 plotCI(x = oc3.dat$DATA_VALUE, y = oc3.dat$median, sfrac=0,pch=19,col=alpha(ind.col.spm,0.5),
        uiw = oc3.dat$mad,liw = oc3.dat$mad, add=T,lwd=1.5)
 legend(x=0.05,y=50,"(a)", bty="n")
@@ -36,7 +36,7 @@ abline(a = oldlm[1,1], b=oldlm[2,1],xpd=F)
 ind.col.spm = cut(sat.dat$spm, breaks=seq(0,15,1))
 ind.col.spm = in.col[ind.col.spm]
 plot(NULL ,xlim=c(0.05,50), ylim=c(0.05,50),pch=19,log="xy",
-     xlab = expression("In situ chl-a (mg/m"^3*")"),ylab = expression("Sat chl-a (mg/m"^3*")"))
+     xlab = expression("In situ chl-a (mg/m"^3*")"),ylab = expression("Satellite chl-a (mg/m"^3*")"))
 plotCI(x = sat.dat$DATA_VALUE, y = sat.dat$median, sfrac=0,pch=19,col=alpha(ind.col.spm,0.5),
        uiw = sat.dat$mad,liw = sat.dat$mad, add=T,lwd=1.5,xpd=F)
 legend(x=0.05,y=50,"(b)", bty="n")
