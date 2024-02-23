@@ -1,14 +1,14 @@
 ## Improving satellite chlorophyll-a retrieval in the turbid waters of the Bay of Fundy, Canada
 
-Wilson KL, Hilborn A, Clay S, Devred E (2023) Improving satellite chlorophyll-a retrieval in the turbid waters of the Bay of Fundy, Canada (In prep) Estuaries and Coasts
+Wilson KL, Hilborn A, Clay S, Devred E (2024) Improving satellite chlorophyll-a retrieval in the turbid waters of the Bay of Fundy, Canada. Estuaries and Coasts
 
 <img align="right" src="./Figures/Figure9.png" width="300"/>
 
 This project focused on improving chl-a and SPM retrieval in the Bay of Fundy.
 
-The yearly and seasonal climatology layers are hosted on Open Data at:
+The yearly and seasonal climatology layers are hosted on Open Data at: https://open.canada.ca/data/en/dataset/272f5cf1-52bb-416b-b92a-8bc9384fc24d 
 
-Please contact for daily composites: 
+Please contact for daily composites: kristen.wilson@dfo-mpo.gc.ca
 
 
 
