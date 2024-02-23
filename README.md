@@ -44,5 +44,5 @@ MODIS-Aqua [L1A images](https://oceancolor.gsfc.nasa.gov/resources/docs/product-
 
 ### Coastline and boundary files:
 
-* Canada: 
+* Canada: [Government of Canada Provinces/Territories, Cartographic Boundary File - 2016 Census](https://open.canada.ca/data/en/dataset/a883eb14-0c0e-45c4-b8c4-b54c4a819edb/resource/12c03de6-c3f7-4f5f-bb5c-d479f2332842)
 * U.S.A.: [United States Census Bureau Cartographic Boundary Files](https://www.census.gov/geographies/mapping-files/time-series/geo/cartographic-boundary.html)
