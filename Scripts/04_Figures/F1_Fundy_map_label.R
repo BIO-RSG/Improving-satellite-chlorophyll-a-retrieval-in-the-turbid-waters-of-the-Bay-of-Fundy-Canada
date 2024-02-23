@@ -75,5 +75,10 @@ bp <- ggplot() +
         axis.title.y = element_text(color = "black", size = 8, family = "serif"),
         panel.border = element_rect(color = "black", fill = NA))  
   
+bp2 = bp +
+  # Islands
+  ggrepel::geom_text_repel(aes(label = "Brier\nIsland", x = -66.4,y = 44.25), 
+                           colour = "grey40", size = 3, min.segment.length = 0.5, nudge_x = -0.1,
+                           nudge_y = -0.4, family = "serif")
 
-save_plot("./Figures//Figure1.png", plot=bp, base_height = 5.5, base_width =6.5, dpi = 300)
+save_plot("./Figures//Figure1.png", plot=bp2, base_height = 5.5, base_width =6.5, dpi = 300)

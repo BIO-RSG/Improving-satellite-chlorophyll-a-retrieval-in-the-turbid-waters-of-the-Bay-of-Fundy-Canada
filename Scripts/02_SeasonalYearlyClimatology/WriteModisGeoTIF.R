@@ -3,8 +3,8 @@ library(raster)
 library(doParallel)
 library(foreach)
 
-in.fold = "disk2/FUNDY_2021/MODISA/L3/Daily/chloc3m2"
-out.fold = "disk4/BayofFundy/Modis/Daily_Composites_geotiff/chloc3m2/"
+in.fold = "./FUNDY_2021/MODISA/L3/Daily/chloc3m2"
+out.fold = "./BayofFundy/Modis/Daily_Composites_geotiff/chloc3m2/"
 
 nc.names = list.files(in.fold,recursive=T,pattern="v3.grd$")
 name.paste = paste0(in.fold,"/", nc.names)
