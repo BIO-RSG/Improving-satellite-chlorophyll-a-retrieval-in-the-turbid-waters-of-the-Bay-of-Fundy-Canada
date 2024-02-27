@@ -1,5 +1,10 @@
 library(terra)
 setwd("")
+
+#this script will calculate the median, standard deviation, and number of input images for each year
+#Line 16 can be changed to mean as needed
+#Line 21 to ends calculates the yearly stats across all years
+
 modis = list.files("./BayofFundy/Modis/Daily_Composites_geotiff/chloc3m2/")
 modis.date = as.Date( unlist(strsplit(modis,"A"))[seq(2,length(modis )*2,2)], format="%Y%j")
 modis = list.files("./BayofFundy/Modis/Daily_Composites_geotiff/chloc3m2/",full.names = T)

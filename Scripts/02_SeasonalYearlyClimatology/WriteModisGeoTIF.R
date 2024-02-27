@@ -3,6 +3,9 @@ library(raster)
 library(doParallel)
 library(foreach)
 
+#this code converts the grid files outputted by the regridding software to more user friendly geotifs
+#this code runs in parallel, change line 15 to indicate the number of cores to use
+
 in.fold = "./FUNDY_2021/MODISA/L3/Daily/chloc3m2"
 out.fold = "./BayofFundy/Modis/Daily_Composites_geotiff/chloc3m2/"
 

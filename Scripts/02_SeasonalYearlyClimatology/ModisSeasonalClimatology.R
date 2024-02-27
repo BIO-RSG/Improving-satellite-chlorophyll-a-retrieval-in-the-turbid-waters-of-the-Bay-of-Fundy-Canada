@@ -1,7 +1,10 @@
 library(terra)
 
 setwd("")
-
+#this script will calculate the median, standard deviation, and number of input images for each season by year
+#the breakdown of season by month number with January being month 1 is on Lines 11 to 38
+#Line 42 can be changed to mean as needed
+#Line 56 to ends calculates the seasonal stats across all years
 for(j in c("winter","spring","summer","fall")){
   print(j)
 for(i in 2003:2021){

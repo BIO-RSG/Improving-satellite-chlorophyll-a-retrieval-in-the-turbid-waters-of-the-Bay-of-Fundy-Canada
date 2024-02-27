@@ -2,7 +2,11 @@ library(oceancolouR)
 library(data.table)
 library(dplyr)
 library(lmodel2)
-source("./Scripts/04_MatchupsTuning/ChlaOptimize_CV_Boot_Source.R")
+source("./Scripts/03_MatchupsTuning/ChlaOptimize_CV_Boot_Source.R")
+
+##
+#this code will optimize the polynomial coefficients of OCx-SPMCor based on your in situ data set
+#This code performs both validation and bootstrapping
 
 # for bootstrapping to test model
 library(boot)

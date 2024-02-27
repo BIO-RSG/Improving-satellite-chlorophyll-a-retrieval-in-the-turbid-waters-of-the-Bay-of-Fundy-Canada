@@ -1,3 +1,5 @@
+#this code provides the source functions for ChlaOptimize_CV_Boot
+
 
 # Note that in lmodel2 (the function used to linearly regress the predicted satellite chla
 # against the in situ chla for evaluation), the regression method is set to "3" (SMA, Standard Major Axis),

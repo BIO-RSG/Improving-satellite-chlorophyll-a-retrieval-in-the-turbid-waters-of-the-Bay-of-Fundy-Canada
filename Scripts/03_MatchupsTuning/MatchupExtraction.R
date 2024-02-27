@@ -1,6 +1,11 @@
 library("raster")
 library("oceancolouR")
 
+#This codes reads in your .tif satellite files and the matchup datatset in a .csv file
+#It uses the date to find files with the same date in both the satellite and in situ data
+#It then extracts the pixels in a 5x5 box around the matchup point, change line 49 for a different box size
+#Median, mean, geometric mean, n, standard deviation, filtered mean, and coefficient of variation are all returned
+
 #Get Modis data
 modis.dates.in = list.files("./Modis/Daily_Composites_geotiff/chloc3",recursive=T,pattern=".tif")
 modis.dat = stack(paste0("./Modis/Daily_Composites_geotiff/chloc3/", modis.dates.in))

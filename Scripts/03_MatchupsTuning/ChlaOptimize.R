@@ -4,6 +4,9 @@ library(dplyr)
 library(lmodel2)
 options(scipen=5)
 
+##
+#this code will optimize the polynomial coefficients of OCx-SPMCor based on your in situ data set
+#This does not perform any validation or bootstrapping
 
 #*******************************************************************************
 # VARIABLES TO CHANGE
